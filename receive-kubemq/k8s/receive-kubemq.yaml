@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: receive-kubemq
+  namespace: kubemq
+  labels:
+    app: receive-kubemq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: receive-kubemq
+  template:
+    metadata:
+      labels:
+        app: receive-kubemq
+    spec:
+      containers:
+        - name: receive-kubemq
+          image: receive-kubemq
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8082
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: receive-kubemq
+  namespace: kubemq
+  labels:
+    app: receive-kubemq
+spec:
+  ports:
+    - port: 8082
+      protocol: TCP
+  selector:
+    app: receive-kubemq
+  type: NodePort
