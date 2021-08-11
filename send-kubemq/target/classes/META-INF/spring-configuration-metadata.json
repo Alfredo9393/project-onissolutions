@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "kubemq",
+      "type": "pl.piomin.service.kubemq.config.KubeMQConfiguration",
+      "sourceType": "pl.piomin.service.kubemq.config.KubeMQConfiguration"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
