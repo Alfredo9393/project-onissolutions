@@ -1,0 +1,15 @@
+com\api\InformationClubWifi\model\InfClubWifiReferParamModel.class
+com\api\InformationClubWifi\model\InfClubWifiReplyToModel.class
+com\api\kubemq\listener\UserListener.class
+com\api\InformationClubWifi\model\InfClubWifiHeaderModel.class
+com\api\InformationClubWifi\model\UserModel.class
+com\api\InformationClubWifi\model\InfClubWifiEnvelopeModel.class
+com\api\InformationClubWifi\InformationClubWifiApplication.class
+com\api\InformationClubWifi\controller\InformationClubWifiController.class
+com\api\kubemq\enums\InformationClubWifiStatus.class
+com\api\InformationClubWifi\model\InfClubWifiRequestModel.class
+com\api\InformationClubWifi\model\InfClubWifiResultModel.class
+com\api\kubemq\config\KubeMQConfiguration.class
+com\api\InformationClubWifi\model\InfClubWifiBodyModel.class
+com\api\InformationClubWifi\model\InfClubWifiProcessResponseModel.class
+com\api\InformationClubWifi\service\InformationClubWifiService.class
