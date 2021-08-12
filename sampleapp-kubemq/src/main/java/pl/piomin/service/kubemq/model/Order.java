@@ -14,18 +14,11 @@ import java.time.LocalDateTime;
 @ToString
 public class Order implements Serializable {
 
-//adap
-//    private OrderType type;
-    private String name;
-    private String firstName;
-    private String lastName;
-    private String account;
-
-
-//    private Integer accountIdFrom;
-//    private Integer accountIdTo;
-//    private LocalDateTime date;
-//    private int amount;
+    private OrderType type;
+    private Integer accountIdFrom;
+    private Integer accountIdTo;
+    private LocalDateTime date;
+    private int amount;
     private String id;
     private OrderStatus status;
 

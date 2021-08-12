@@ -29,32 +29,29 @@ public class OrderListener {
 	private TaskExecutor taskExecutor;
 
 	public OrderListener(Queue queue, Channel channel, OrderProcessor orderProcessor, TaskExecutor taskExecutor) {
-            this.queue = queue;
-            this.channel = channel;
-            this.orderProcessor = orderProcessor;
-            this.taskExecutor = taskExecutor;
+		this.queue = queue;
+		this.channel = channel;
+		this.orderProcessor = orderProcessor;
+		this.taskExecutor = taskExecutor;
 	}
 
 	@PostConstruct
 	public void listen() {
             taskExecutor.execute(() -> {
-                int index=0;
-
                 while (true) {
                     try {
                         Transaction transaction = queue.CreateTransaction();
                         TransactionMessagesResponse response = transaction.Receive(10, 10);
-                        
                         if (response.getMessage().getBody().length > 0) {
-                            index++;
-                            Order order = orderProcessor.process((Order) Converter.FromByteArray(response.getMessage().getBody()));
-                            LOGGER.info("Processed: {} index: {}", order,index);
+                            Order order = orderProcessor
+                                    .process((Order) Converter.FromByteArray(response.getMessage().getBody()));
+                            LOGGER.info("Processed: {}", order);
                             if (order.getStatus().equals(OrderStatus.CONFIRMED)) {
                                 transaction.AckMessage();
                                 Event event = new Event();
                                 event.setEventId(response.getMessage().getMessageID());
                                 event.setBody(Converter.ToByteArray(order));
-                                LOGGER.info("Sending event: id={}", event.getEventId());
+                                                            LOGGER.info("Sending event: id={}", event.getEventId());
                                 channel.SendEvent(event);
                             } else {
                                 transaction.RejectMessage();
@@ -64,9 +61,9 @@ public class OrderListener {
                         }
                         Thread.sleep(10000);
                     } catch (Exception e) {
-                        LOGGER.error("Error", e);
-                    }
+                                            LOGGER.error("Error", e);
                 }
+            }
             });
 
 	}

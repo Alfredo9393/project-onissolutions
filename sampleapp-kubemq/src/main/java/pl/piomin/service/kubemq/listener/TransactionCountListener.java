@@ -42,18 +42,18 @@ public class TransactionCountListener implements StreamObserver<EventReceive> {
         try {
             Order order = (Order) Converter.FromByteArray(eventReceive.getBody());
             LOGGER.info("Count event: {}", order);
-//            Integer accountIdTo = order.getAccountIdTo();
-//            Integer noOfTransactions = transactionsCount.get(accountIdTo);
-//            if (noOfTransactions == null)
-//                transactionsCount.put(accountIdTo, 1);
-//            else {
-//                transactionsCount.put(accountIdTo, ++noOfTransactions);
-//                if (noOfTransactions > 5) {
-//                    accountRepository.updateBalance(order.getAccountIdTo(), (int) (order.getAmount() * 0.1));
-//                    LOGGER.info("Adding extra to: id={}", order.getAccountIdTo());
-//                }
-//            }
-        } catch (IOException | ClassNotFoundException  e) {
+            Integer accountIdTo = order.getAccountIdTo();
+            Integer noOfTransactions = transactionsCount.get(accountIdTo);
+            if (noOfTransactions == null)
+                transactionsCount.put(accountIdTo, 1);
+            else {
+                transactionsCount.put(accountIdTo, ++noOfTransactions);
+                if (noOfTransactions > 5) {
+                    accountRepository.updateBalance(order.getAccountIdTo(), (int) (order.getAmount() * 0.1));
+                    LOGGER.info("Adding extra to: id={}", order.getAccountIdTo());
+                }
+            }
+        } catch (IOException | ClassNotFoundException | InsufficientFundsException e) {
             LOGGER.error("Error", e);
         }
     }

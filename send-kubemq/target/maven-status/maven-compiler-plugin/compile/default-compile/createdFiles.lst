@@ -1,6 +1,5 @@
 pl\piomin\service\kubemq\model\Order$OrderBuilder.class
 pl\piomin\service\kubemq\controller\OrderController.class
-pl\piomin\service\kubemq\listener\OrderListener.class
 pl\piomin\service\kubemq\repository\AccountRepository.class
 pl\piomin\service\kubemq\ReceiveKubeMQ.class
 pl\piomin\service\kubemq\exception\InsufficientFundsException.class

@@ -17,7 +17,7 @@ import pl.piomin.service.kubemq.model.OrderStatus;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/receive")
+@RequestMapping("/orders")
 public class OrderController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
