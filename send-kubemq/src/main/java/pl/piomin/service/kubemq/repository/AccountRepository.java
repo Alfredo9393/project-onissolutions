@@ -9,10 +9,7 @@ public class AccountRepository {
 
     public Order getDataAccount(String account) throws InsufficientFundsException {
         System.out.println("select data from account where F1 = " +account);
-        Order order = null;
-        order.setName("MARCELI ELIZABETH");
-        order.setFirstName("MORENO");
-        order.setLastName("");
+        Order order =  Order.builder().name("MARCELI ELIZABETH").lastName("ROMERO").firstName("MORENO").build();
         return order;    
     }
 }

@@ -15,33 +15,28 @@ import pl.piomin.service.kubemq.model.Order;
 import pl.piomin.service.kubemq.model.OrderStatus;
 
 import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMethod;
+import pl.piomin.service.kubemq.model.InfClubWifiEnvelopeModel;
+import pl.piomin.service.kubemq.service.OrderProcessor;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/informationclubwifi")
 public class OrderController {
 
+    @Autowired
+    private OrderProcessor orderProcessor;
+        
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
+        
+    
+    @RequestMapping(value="/send",method=RequestMethod.POST)
+    public InfClubWifiEnvelopeModel sendOrder(@RequestBody Order order) {
+        System.out.println("Get api POST: Account: "+order.getAccount());      
+        return orderProcessor.validateAccout(order.getAccount());  
 
-    private Queue queue;
-
-    public OrderController(Queue queue) {
-        this.queue = queue;
     }
-
-    @PostMapping
-    public Order sendOrder(@RequestBody Order order) {
-        try {
-            LOGGER.info("Sending: {}", order);
-            final SendMessageResult result = queue.SendQueueMessage(new Message().setBody(Converter.ToByteArray(order)));
-            
-            order.setId(result.getMessageID());
-            order.setStatus(OrderStatus.ACCEPTED);
-            LOGGER.info("Sent: {}", order);
-        } catch (ServerAddressNotSuppliedException | IOException e) {
-            LOGGER.error("Error sending", e);
-            order.setStatus(OrderStatus.ERROR);
-        }
-        return order;
-    }
+    
+    
 
 }
